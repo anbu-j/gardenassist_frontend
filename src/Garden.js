@@ -15,16 +15,19 @@ class Garden extends Component {
             headline: []
         }
     
-     /*componentDidMount() {
-        API call to get news related to Scientific world
-        fetch('https://newsapi.org/v2/sources?category=science&country=us&apiKey=85de8e280e634f148ea087999668ce7a') 
+    /* componentDidMount() {
+      //  API call to get news related to Scientific world
+        //fetch('https://newsapi.org/v2/sources?category=science&country=us&apiKey=85de8e280e634f148ea087999668ce7a') 
+        fetch('http://www.7timer.info/bin/astro.php?lon=113.17&lat=23.09&ac=0&lang=en&unit=metric&output=internal&tzshift=0')
         .then(response=> response.json())
         .then((data) => {this.setState( {headline: data.sources })
-        //console.log(this.state.headline)
-    })
+        console.log(this.state.headline)
+    }) 
  
         
     }*/
+
+  
 
     render() {
         
@@ -34,6 +37,7 @@ class Garden extends Component {
                 <AppNavbar/>
                 <Container fluid>
                      <Button color="red"><Link to="/flowerslist">My Flowering Buddies</Link></Button>
+                     <Button color="red"><Link to="/fruitslist">My Fruit Buddies</Link></Button>
                      
                 </Container>
                 

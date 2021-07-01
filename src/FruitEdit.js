@@ -3,12 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 
-// Route called from the Flowers list main page.
-// Called either to add a new flower to the Database or to edit a property of the flower
-// passes state back to main page
-
-class FlowerEdit extends Component {
-
+class FruitEdit extends Component {
     emptyItem = {
         name: '',
         plant_id: '',
@@ -16,10 +11,10 @@ class FlowerEdit extends Component {
         planting_date:'',
         seasonality:'',
         watering_duration:'',
-        fertilization_duration1:'',
-        fertilization_duration2:'',
-        fertilization_need1:'',
-        fertilization_need2:'',
+        fertilization_duration:'',
+        harvesting_duration:'',
+        fertilization_need:'',
+        harvesting_date:'',
         end_date:''
 
 
@@ -37,8 +32,8 @@ class FlowerEdit extends Component {
         //console.log(this.props.match.params.plant_id)
         // props with plant_id = "new" for adding item to DB, plant_id != "New" for editing item already in DB.
         if (this.props.match.params.plant_id !== 'new') {
-            const flowergarden = await (await fetch(`https://mygarden-assistant.herokuapp.com/FlowerGarden/${this.props.match.params.plant_id}`)).json();
-            this.setState({item: flowergarden});
+            const fruitgarden = await (await fetch(`https://mygarden-assistant.herokuapp.com/FruitGarden/${this.props.match.params.plant_id}`)).json();
+            this.setState({item: fruitgarden});
         }
     }
     handleChange(event) {
@@ -55,7 +50,7 @@ class FlowerEdit extends Component {
         const {item} = this.state;
     
         // For updating in DB, plant_id is prepopulated (call PUT method). For creating new record, plant_id is empty (Call POST method)
-        await fetch('https://mygarden-assistant.herokuapp.com/FlowerGarden' + (item.plant_id ? '/' + item.plant_id : ''), {
+        await fetch('https://mygarden-assistant.herokuapp.com/FruitGarden' + (item.plant_id ? '/' + item.plant_id : ''), {
             method: (this.props.match.params.plant_id === "new") ? 'POST' : 'PUT',
             headers: {
                 'Accept': 'application/json',
@@ -63,11 +58,11 @@ class FlowerEdit extends Component {
             },
             body: JSON.stringify(item),
         });
-        this.props.history.push('/flowerslist');
+        this.props.history.push('/fruitslist');
     }
     render() {
         const {item} = this.state;
-        const title = <h2>{item.plant_id ? 'Edit Flower' : 'Add Flowering Plant'}</h2>;
+        const title = <h2>{item.plant_id ? 'Edit Fruit' : 'Add Fruit Plant'}</h2>;
     
         return <div>
             <AppNavbar/>
@@ -111,24 +106,24 @@ class FlowerEdit extends Component {
                                onChange={this.handleChange} autoComplete="end_date"/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="fertilization_need1">Fertilization Need1</Label>
-                        <Input type="text" name="fertilization_need1" plant_id="fertilization_need1" value={item.fertilization_need1 || ''}
-                               onChange={this.handleChange} autoComplete="fertilization_need1"/>
+                        <Label for="fertilization_need">Fertilization Need</Label>
+                        <Input type="text" name="fertilization_need" plant_id="fertilization_need" value={item.fertilization_need || ''}
+                               onChange={this.handleChange} autoComplete="fertilization_need"/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="fertilization_duration1">Fertilization Duration 1</Label>
-                        <Input type="text" name="fertilization_duration1" plant_id="fertilization_duration1" value={item.fertilization_duration1 || ''}
-                               onChange={this.handleChange} autoComplete="fertilization_duration1"/>
+                        <Label for="fertilization_duration">Fertilization Duration</Label>
+                        <Input type="text" name="fertilization_duration" plant_id="fertilization_duration" value={item.fertilization_duration || ''}
+                               onChange={this.handleChange} autoComplete="fertilization_duration"/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="fertilization_need2">Fertilization Need2</Label>
-                        <Input type="text" name="fertilization_need2" plant_id="fertilization_need2" value={item.fertilization_need2 || ''}
-                               onChange={this.handleChange} autoComplete="fertilization_need2"/>
+                        <Label for="harvesting_date">Harvesting Date</Label>
+                        <Input type="text" name="harvesting_date" plant_id="harvesting_date" value={item.harvesting_date || ''}
+                               onChange={this.handleChange} autoComplete="harvesting_date"/>
                     </FormGroup>
                     <FormGroup>
-                        <Label for="fertilization_duration2">Fertilization Duration 2</Label>
-                        <Input type="text" name="fertilization_duration2" plant_id="fertilization_duration2" value={item.fertilization_duration2 || ''}
-                               onChange={this.handleChange} autoComplete="fertilization_duration2"/>
+                        <Label for="harvesting_duration">Harvesting Duration</Label>
+                        <Input type="text" name="harvesting_duration" plant_id="harvesting_duration" value={item.harvesting_duration || ''}
+                               onChange={this.handleChange} autoComplete="harvesting_duration"/>
                     </FormGroup>
 
                    
@@ -136,13 +131,13 @@ class FlowerEdit extends Component {
 
                     <FormGroup>
                     <Button color="primary" type="submit">Save</Button>{' '}
-                    <Button color="secondary" tag={Link} to="/flowerslist">Cancel</Button>
+                    <Button color="secondary" tag={Link} to="/fruitslist">Cancel</Button>
                 </FormGroup>
                 
             </Form>
         </Container>
     </div>
+    }
 }
 
-}
-export default withRouter(FlowerEdit);
+export default withRouter(FruitEdit);
