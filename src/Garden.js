@@ -15,16 +15,16 @@ class Garden extends Component {
             headline: []
         }
     
-    componentDidMount() {
-        /* API call to get news related to Scientific world
+     /*componentDidMount() {
+        API call to get news related to Scientific world
         fetch('https://newsapi.org/v2/sources?category=science&country=us&apiKey=85de8e280e634f148ea087999668ce7a') 
         .then(response=> response.json())
-        .then((data) => {this.setState( {headline: data.sources })*/
+        .then((data) => {this.setState( {headline: data.sources })
         //console.log(this.state.headline)
     })
  
         
-    }
+    }*/
 
     render() {
         
